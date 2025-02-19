@@ -1,0 +1,13 @@
+services:
+  request-logger:
+    build: .
+    ports:
+      - "${PORT:-4567}:${PORT:-4567}"
+    volumes:
+      - .:/app
+    environment:
+      - RACK_ENV=development
+      - PORT=${PORT:-4567}  # 環境変数がなければデフォルト4567
+      - LOG_HEADERS=${LOG_HEADERS:-true} # デフォルトではリクエストのヘッダー情報を併記
+    env_file:
+      - .env  # .envファイルを読み込む
